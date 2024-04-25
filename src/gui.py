@@ -7,7 +7,6 @@ class GUI:
     def __init__(self, tilt_queue: queue.Queue) -> None:
         self.__window = tk.Tk()
         self.__window.title("Kinect Controller")
-        # self.__frame = self.__window.frame
 
         self.__frame = ttk.Frame()
 
