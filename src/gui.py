@@ -44,7 +44,7 @@ class GUI:
     def __tilt_scale_to_int(self, arg) -> None:
         with self.__tilt_queue.mutex:
             self.__tilt_queue.queue.clear()
-        self.__tilt_queue.put(arg)
+        self.__tilt_queue.put(int(arg))
 
     def __close(self) -> None:
         self.__window.destroy()

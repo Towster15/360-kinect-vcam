@@ -26,7 +26,7 @@ class Kinect:
 
     def adjust_angle(self, angle: int = 0) -> None:
         if -27 <= angle <= 27:
-            self.__kinect.camera.set_elevation_angle()
+            self.__kinect.camera.set_elevation_angle(angle)
 
     def close(self):
         self.__kinect.close()
