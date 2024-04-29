@@ -19,6 +19,8 @@ if __name__ == "__main__":
     with pyvirtualcam.Camera(width=640, height=480, fps=30) as vcam:
         print(f"Using virtual camera: {vcam.device}")
         default_frame = np.zeros((vcam.height, vcam.width, 3), np.uint8)
+        default_frame[:] = (100, 100, 100)
+        data = None
         while gui_thread.is_alive():
             try:
                 kinect.adjust_angle(tilt_queue.get_nowait())
@@ -28,9 +30,10 @@ if __name__ == "__main__":
                 data = video_frame_queue.get_nowait()
                 vcam.send(data)
             except queue.Empty:
-                c = (vcam.frames_sent % 100) / 100
-                default_frame[:] = (c * 100, c * 100, c * 100)
-                vcam.send(default_frame)
+                if data is None:
+                    vcam.send(default_frame)
+                else:
+                    vcam.send(data)
             vcam.sleep_until_next_frame()
 
     kinect.close()
